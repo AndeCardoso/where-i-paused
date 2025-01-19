@@ -1,4 +1,4 @@
-package com.anonymous.whereipaused
+package com.cardoso.whereipaused
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

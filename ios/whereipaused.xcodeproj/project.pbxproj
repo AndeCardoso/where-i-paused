@@ -302,8 +302,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anonymous.where-i-paused";
-				PRODUCT_NAME = "whereipaused";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cardoso.where-i-paused";
+				PRODUCT_NAME = "WhereIPaused";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -329,8 +329,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anonymous.where-i-paused";
-				PRODUCT_NAME = "whereipaused";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cardoso.where-i-paused";
+				PRODUCT_NAME = "WhereIPaused";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				TARGETED_DEVICE_FAMILY = "1,2";

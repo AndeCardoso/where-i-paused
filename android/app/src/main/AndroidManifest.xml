@@ -26,6 +26,7 @@
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="myapp"/>
         <data android:scheme="com.anonymous.whereipaused"/>
+        <data android:scheme="com.cardoso.whereipaused"/>
       </intent-filter>
     </activity>
   </application>

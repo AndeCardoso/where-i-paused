@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.whereipaused'
+    namespace 'com.cardoso.whereipaused'
     defaultConfig {
-        applicationId 'com.anonymous.whereipaused'
+        applicationId 'com.cardoso.whereipaused'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

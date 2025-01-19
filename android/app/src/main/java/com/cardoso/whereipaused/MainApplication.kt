@@ -1,4 +1,4 @@
-package com.anonymous.whereipaused
+package com.cardoso.whereipaused
 
 import android.app.Application
 import android.content.res.Configuration

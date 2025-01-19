@@ -21,7 +21,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   }
 }
 
-rootProject.name = 'where-i-paused'
+rootProject.name = 'Where I Paused'
 
 dependencyResolutionManagement {
   versionCatalogs {

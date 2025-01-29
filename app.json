@@ -25,7 +25,12 @@
       "favicon": "./src/presentation/assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "root": "./src/presentation/app"
+        }
+      ],
       [
         "expo-splash-screen",
         {

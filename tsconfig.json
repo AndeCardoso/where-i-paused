@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./src",
-    "types": ["react-native", "react-native-paper"],
+    "types": ["react-native", "react-native-paper", "jest"],
     "paths": {
       "@data/*": ["./data/*"],
       "@domain/*": ["./domain/*"],

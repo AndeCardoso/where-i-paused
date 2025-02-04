@@ -3,6 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./src",
+    "types": ["react-native", "react-native-paper"],
     "paths": {
       "@data/*": ["./data/*"],
       "@domain/*": ["./domain/*"],
@@ -20,7 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "nativewind-env.d.ts"
+    "src/presentation/@types/assets.d.ts",
+    "nativewind-env.d.ts",
+    "expo-env.d.ts"
   ]
 }

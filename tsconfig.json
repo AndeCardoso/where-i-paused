@@ -3,28 +3,26 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./src",
+    "types": ["react-native", "react-native-paper", "jest"],
     "paths": {
-      "@data/*": [
-        "./data/*"
-      ],
-      "@domain/*": [
-        "./domain/*"
-      ],
-      "@infra/*": [
-        "./infra/*"
-      ],
-      "@app/*": [
-        "./presentation/app/*"
-      ],
-      "@assets/*": [
-        "./presentation/assets/*"
-      ],
+      "@data/*": ["./data/*"],
+      "@domain/*": ["./domain/*"],
+      "@infra/*": ["./infra/*"],
+      "@app/*": ["./presentation/app/*"],
+      "@pages/*": ["./presentation/pages/*"],
+      "@hooks/*": ["./presentation/hooks/*"],
+      "@providers/*": ["./presentation/providers/*"],
+      "@styles/*": ["./presentation/styles/*"],
+      "@assets/*": ["./presentation/assets/*"],
+      "@components/*": ["./presentation/components/*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
+    "src/presentation/@types/assets.d.ts",
+    "nativewind-env.d.ts",
     "expo-env.d.ts"
   ]
 }

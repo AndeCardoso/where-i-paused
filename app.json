@@ -5,34 +5,43 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/presentation/assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "where-i-paused",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./src/presentation/assets/images/background-full.png"
+    },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.cardoso.where-i-paused"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.cardoso.where-i-paused",
+      "backgroundColor": "#FF7700",
+      "splash": {
+        "image": "./src/presentation/assets/images/splash-icon.png",
+        "resizeMode": "contain",
+        "backgroundImage": "./src/presentation/assets/images/background-full.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/presentation/assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FF7700"
       },
-      "package": "com.cardoso.whereipaused"
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./src/presentation/assets/images/favicon.png"
+      "package": "com.cardoso.where_i_paused"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "root": "./src/presentation/app"
+        }
+      ],
       [
         "expo-splash-screen",
         {
           "image": "./src/presentation/assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#FF7700"
         }
       ]
     ],

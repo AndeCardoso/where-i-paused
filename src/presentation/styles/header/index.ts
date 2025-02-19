@@ -21,8 +21,9 @@ export const headerTheme = (colors: MD3Colors) => {
       borderRadius: 15,
       bottom: 24,
       margin: 24,
-      backgroundColor: colors.primary,
+      borderTopWidth: 0,
       position: "absolute",
+      backgroundColor: "transparent",
     },
     animation: "shift",
   } as BottomTabNavigationOptions;

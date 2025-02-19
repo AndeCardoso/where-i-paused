@@ -5,4 +5,5 @@ export const light = {
   secondaryContainer: "#FFE66F",
   tertiary: "#FFCCA0",
   tertiaryContainer: "#FFB16D",
+  backgroundBlur: "#FF7B0042",
 };

@@ -6,9 +6,14 @@ import { Header } from "./Header/view";
 import { Content } from "./Content/view";
 import { Footer } from "./Footer/view";
 import { FloatingActionButton } from "./FloatingActionButton/view";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Layout: ILayoutProps = ({ children }) => {
-  return <View style={{ paddingTop: 116 }}>{children}</View>;
+  return (
+    <SafeAreaView mode="padding" className="flex-1">
+      <View className="h-full pt-11">{children}</View>
+    </SafeAreaView>
+  );
 };
 
 Layout.Header = Header;

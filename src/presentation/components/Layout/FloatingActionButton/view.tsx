@@ -3,6 +3,8 @@ import { FAB, Portal, useTheme } from "react-native-paper";
 import { IFloatingActionButtonProps } from "./model";
 
 export const FloatingActionButton = ({
+  icon = "plus",
+  height = 160,
   onPress,
 }: IFloatingActionButtonProps) => {
   const { colors } = useTheme();
@@ -10,7 +12,7 @@ export const FloatingActionButton = ({
   return (
     <Portal.Host>
       <FAB
-        icon={"plus"}
+        icon={icon}
         color={colors.onPrimary}
         onPress={onPress}
         mode="flat"
@@ -18,7 +20,7 @@ export const FloatingActionButton = ({
           position: "absolute",
           borderRadius: 50,
           right: 32,
-          bottom: "5%",
+          bottom: height,
         }}
       />
     </Portal.Host>

@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    [
+      {
+        "nativeModules": ["react-native-vector-icons"]
+      }
+    ]
+  ]
+}

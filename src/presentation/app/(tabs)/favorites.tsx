@@ -1,17 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
+import { FavoritesView } from "@pages/favorites/view";
 
 export default function FavoritesTab() {
-  return (
-    <View style={styles.container}>
-      <Text>Tab [favorites]</Text>
-    </View>
-  );
+  return <FavoritesView />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

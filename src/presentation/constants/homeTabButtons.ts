@@ -15,6 +15,6 @@ export const homeTabButtons = [
     name: "favorites",
     title: "Favorites",
     hasHeader: true,
-    icon: "star",
+    icon: "heart",
   },
 ];

@@ -12,8 +12,6 @@ export const headerTheme = (colors: MD3Colors) => {
     },
     headerStyle: {
       backgroundColor: colors.primary,
-      borderBottomEndRadius: 30,
-      borderBottomStartRadius: 30,
     },
     tabBarActiveTintColor: colors.onPrimary,
     tabBarInactiveTintColor: colors.tertiary,

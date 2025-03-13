@@ -14,7 +14,7 @@ describe("Button component", () => {
   it("should render the button with correctly", () => {
     const { getByText } = renderComponent({ children: "Rendered" });
 
-    getByText("Rendered");
+    expect(getByText("Rendered")).toBeOnTheScreen();
   });
 
   it("should triggers onPress when not disabled", () => {

@@ -14,6 +14,6 @@ describe("Text component", () => {
   it("should render the text with correctly", () => {
     const { getByText } = renderComponent({ children: "Rendered" });
 
-    getByText("Rendered");
+    expect(getByText("Rendered")).toBeOnTheScreen();
   });
 });

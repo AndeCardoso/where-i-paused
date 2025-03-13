@@ -29,6 +29,7 @@ export const TabBar = ({ tabButtons }: ITabBarProps) => {
             />
           </View>
         ),
+        animation: "shift",
       }}
     >
       {tabButtons.map(({ name, title, icon, hasHeader }) => (

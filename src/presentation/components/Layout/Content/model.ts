@@ -1,6 +1,9 @@
 import { PropsWithChildren } from "react";
-import { ViewProps } from "react-native";
+import { ScrollViewProps, ViewProps } from "react-native";
 
-export interface ILayoutContentProps extends PropsWithChildren, ViewProps {
+export interface ILayoutContentProps
+  extends PropsWithChildren,
+    ViewProps,
+    ScrollViewProps {
   hasScroll?: boolean;
 }

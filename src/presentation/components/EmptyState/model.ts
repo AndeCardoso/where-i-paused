@@ -1,7 +1,7 @@
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
-export interface IFloatingActionButtonProps {
+export interface IEmptyStateProps {
   icon?: IconSource;
-  height?: number;
-  onPress: VoidFunction;
+  title?: string;
+  subtitle?: string;
 }

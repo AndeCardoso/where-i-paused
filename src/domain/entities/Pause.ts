@@ -4,7 +4,9 @@ export interface IPauseDomain {
   contentType: TContentTypes;
   totalTime: string;
   paused: string;
+  season?: number;
+  episode?: number;
   favorited?: boolean;
 }
 
-export type TContentTypes = "movie" | "serie" | "music";
+export type TContentTypes = "movie" | "series" | "music";

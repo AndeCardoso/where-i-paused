@@ -1,7 +1,7 @@
 import { ISelectOption } from "@components/base/Select/model";
 import { TContentTypes } from "@domain/entities/Pause";
 
-export interface IAddForm {
+export interface IAddForm extends IAddSerie {
   title: string;
   contentType: ISelectOption<TContentTypes>;
   totalTime: string;
@@ -9,18 +9,9 @@ export interface IAddForm {
   favorited?: boolean;
 }
 
-interface IAddMovie {
-  duration: string;
-  casting?: string;
-  releaseYear?: number;
-}
-
-interface IAddSerie {
-  duration: string;
-  casting?: string;
-  releaseYear?: number;
-  totalEpisodes?: number;
-  totalSeasons?: number;
+export interface IAddSerie {
+  season?: number;
+  episode?: number;
 }
 
 interface IAddMusic {

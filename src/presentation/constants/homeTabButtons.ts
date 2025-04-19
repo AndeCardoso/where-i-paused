@@ -1,11 +1,5 @@
 export const homeTabButtons = [
   {
-    name: "recents",
-    title: "Recents",
-    hasHeader: true,
-    icon: "clock-o",
-  },
-  {
     name: "index",
     title: "Home",
     hasHeader: false,

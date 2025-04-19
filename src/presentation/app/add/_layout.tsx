@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import { useTheme } from "react-native-paper";
-import { Providers } from "@providers/index";
 
 export default function AddLayout() {
   const { colors } = useTheme();
@@ -17,7 +16,6 @@ export default function AddLayout() {
         headerStyle: {
           backgroundColor: colors.primary,
         },
-        presentation: "formSheet",
       }}
     >
       <Stack.Screen name="index" />

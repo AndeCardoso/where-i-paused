@@ -5,6 +5,9 @@ import { IInputProps } from "./model";
 export const Input = ({
   mode = "outlined",
   mask,
+  value,
+  fontSize = 16,
+  textAlign,
   onChangeText,
   ...rest
 }: IInputProps) => {
@@ -19,8 +22,10 @@ export const Input = ({
   return (
     <TextInput
       mode={mode}
+      value={value}
       onChangeText={handleChange}
       outlineStyle={{ borderRadius: 8, backgroundColor: colors.transparent }}
+      contentStyle={{ fontSize, textAlign }}
       {...rest}
     />
   );

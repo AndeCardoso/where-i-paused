@@ -5,7 +5,11 @@ import { IChipProps } from "./model";
 
 export const Chip = ({ children, ...rest }: IChipProps) => {
   return (
-    <PaperChip style={{ borderRadius: 50, marginVertical: 0 }} {...rest}>
+    <PaperChip
+      compact
+      style={{ borderRadius: 50, marginVertical: 0 }}
+      {...rest}
+    >
       <Text size={11}>{children}</Text>
     </PaperChip>
   );

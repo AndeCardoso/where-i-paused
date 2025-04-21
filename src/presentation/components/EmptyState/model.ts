@@ -4,4 +4,5 @@ export interface IEmptyStateProps {
   icon?: IconSource;
   title?: string;
   subtitle?: string;
+  isContrasted?: boolean;
 }

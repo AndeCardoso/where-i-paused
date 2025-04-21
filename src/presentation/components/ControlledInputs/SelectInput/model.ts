@@ -1,6 +1,6 @@
 import { ControllerProps } from "react-hook-form";
 import { ITextProps } from "@components/base/Text/model";
-import { ISelectProps } from "@components/base/Select/model";
+import { ISelectOption, ISelectProps } from "@components/base/Select/model";
 
 export interface ICrontrolledSelectInputProps
   extends Omit<ISelectProps, "onSelect">,
@@ -8,4 +8,5 @@ export interface ICrontrolledSelectInputProps
     Omit<ControllerProps, "render" | "defaultValue"> {
   label?: string;
   textArea?: boolean;
+  onSelect?: (option: ISelectOption) => void;
 }

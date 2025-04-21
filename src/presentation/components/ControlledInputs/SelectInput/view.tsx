@@ -5,6 +5,7 @@ import { HelperText } from "react-native-paper";
 import { Text } from "@components/base/Text/view";
 import { Select } from "@components/base/Select/view";
 import { ICrontrolledSelectInputProps } from "./model";
+import { ISelectOption } from "@components/base/Select/model";
 
 export const ControlledSelectInput = ({
   name,
@@ -18,6 +19,7 @@ export const ControlledSelectInput = ({
   modalTitle,
   placeholder,
   defaultValue,
+  onSelect,
 }: ICrontrolledSelectInputProps) => {
   return (
     <Controller
@@ -26,6 +28,10 @@ export const ControlledSelectInput = ({
       disabled={disabled}
       defaultValue={defaultValue}
       render={({ field: { value, onChange }, fieldState: { error } }) => {
+        const handleChange = (option: ISelectOption) => {
+          onSelect && onSelect(option);
+          onChange(option);
+        };
         return (
           <View className="gap-2">
             <View className="flex-row justify-between align-middle">
@@ -44,7 +50,7 @@ export const ControlledSelectInput = ({
               placeholder={placeholder}
               numberOfLines={textArea ? 4 : undefined}
               multiline={textArea}
-              onSelect={onChange}
+              onSelect={handleChange}
               options={options}
             />
           </View>

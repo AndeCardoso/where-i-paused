@@ -4,8 +4,9 @@ import { IFloatingActionButtonProps } from "./model";
 
 export const FloatingActionButton = ({
   icon = "plus",
-  height = 160,
+  height = 140,
   onPress,
+  isContrasted,
 }: IFloatingActionButtonProps) => {
   const { colors } = useTheme();
 
@@ -13,7 +14,7 @@ export const FloatingActionButton = ({
     <Portal.Host>
       <FAB
         icon={icon}
-        color={colors.onPrimary}
+        color={isContrasted ? colors.onPrimary : colors.primary}
         onPress={onPress}
         mode="flat"
         style={{
@@ -21,6 +22,7 @@ export const FloatingActionButton = ({
           borderRadius: 50,
           right: 32,
           bottom: height,
+          backgroundColor: isContrasted ? colors.primary : colors.onPrimary,
         }}
       />
     </Portal.Host>

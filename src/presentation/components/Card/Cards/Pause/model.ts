@@ -6,5 +6,6 @@ export interface IPauseCardProps {
   onEdit: (id: number) => void;
   onOpen: (id: number) => void;
   isOpenned: boolean;
+  isContrasted?: boolean;
   data: IPauseDomain;
 }

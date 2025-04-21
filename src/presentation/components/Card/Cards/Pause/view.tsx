@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Animated } from "react-native";
+import { View } from "react-native";
 import { remapProps } from "nativewind";
 import { IconButton, useTheme } from "react-native-paper";
+import Animated from "react-native-reanimated";
 
 import { Text } from "@components/base/Text/view";
 import { Card } from "@components/Card/view";
@@ -24,37 +25,56 @@ export const PauseCard = ({
   onFavorite,
   onDelete,
   onEdit,
-  data: { id, title, contentType, totalTime, paused, favorited },
+  isContrasted = false,
+  data: {
+    id,
+    title,
+    contentType,
+    totalTime,
+    paused,
+    season,
+    episode,
+    favorited,
+  },
 }: IPauseCardProps) => {
   const { colors } = useTheme();
-  const {
-    toggleActions,
-    animatedHeight,
-    animatedOpacity,
-    rotate,
-    viewState: { shouldRenderActions },
-  } = usePauseCardViewModel();
-
-  const handleOpenCard = () => {
-    toggleActions();
-  };
+  const { toggleActions, animatedHeight, animatedOpacity, rotate } =
+    usePauseCardViewModel();
 
   const timelinePosition =
     Number(paused) / Number(formatTimeToSeconds(totalTime));
 
   return (
     <CustomizedCard
-      contentStyle="w-full rounded-[15] border-b-8 border-b-primary"
-      onPress={handleOpenCard}
+      contentStyle={`w-full rounded-[15] border-b-8 border-b-${
+        isContrasted ? "primary" : "secondary"
+      }`}
+      onPress={toggleActions}
     >
       <Card.Content className="w-full flex-row pb-4 gap-2 self-center items-center justify-between">
-        <View className=" flex-1">
+        <View className=" flex-1 gap-4">
           <View className="flex-row justify-between">
             <Text size={24} weight="600">
               {title}
             </Text>
             <CustomizedChip textStyle="uppercase">{contentType}</CustomizedChip>
           </View>
+          {contentType === "series" ? (
+            <View className="flex-row justify-between">
+              <View>
+                <Text size={18}>Season</Text>
+                <Text size={32} weight="600">
+                  {season}
+                </Text>
+              </View>
+              <View>
+                <Text size={18}>Episode</Text>
+                <Text size={32} weight="600">
+                  {episode}
+                </Text>
+              </View>
+            </View>
+          ) : null}
           <View className="flex-row gap-2">
             <Text className="self-center">
               {formatSecondsToTime(Number(paused))}
@@ -67,7 +87,7 @@ export const PauseCard = ({
             <Text className="self-center">{totalTime}</Text>
           </View>
         </View>
-        <Animated.View style={{ transform: [{ rotate }] }}>
+        <Animated.View style={rotate}>
           <IconButton
             icon="chevron-down"
             iconColor={colors.primary}
@@ -78,13 +98,7 @@ export const PauseCard = ({
         </Animated.View>
       </Card.Content>
 
-      <Animated.View
-        style={{
-          height: animatedHeight,
-          opacity: animatedOpacity,
-          overflow: "hidden",
-        }}
-      >
+      <Animated.View style={[animatedHeight, animatedOpacity]}>
         <Card.Actions>
           <View className="w-full flex-row justify-around">
             <IconButton

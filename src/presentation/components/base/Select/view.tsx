@@ -66,6 +66,7 @@ export const Select = ({
               </Text>
               <IconButton
                 icon="close"
+                testID="iconClose"
                 onPress={handleClose}
                 className="m-0 p-0"
                 iconColor={colors.onPrimary}

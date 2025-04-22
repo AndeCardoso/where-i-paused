@@ -17,7 +17,7 @@ describe("Select component", () => {
       </PaperProvider>
     );
 
-  it("should render TextInput with correct value", () => {
+  it("should render with correct value", () => {
     const { getByDisplayValue } = renderComponent({
       value: { label: "Option 1", value: "opt1" },
     });

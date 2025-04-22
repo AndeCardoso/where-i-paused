@@ -13,16 +13,6 @@ export const headerTheme = (colors: MD3Colors) => {
     headerStyle: {
       backgroundColor: colors.primary,
     },
-    tabBarActiveTintColor: colors.onPrimary,
-    tabBarInactiveTintColor: colors.tertiary,
-    tabBarStyle: {
-      borderRadius: 15,
-      bottom: 24,
-      margin: 24,
-      borderTopWidth: 0,
-      position: "absolute",
-      backgroundColor: "transparent",
-    },
     animation: "shift",
   } as BottomTabNavigationOptions;
 };

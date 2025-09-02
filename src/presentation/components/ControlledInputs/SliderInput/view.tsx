@@ -46,7 +46,6 @@ export const ControlledSliderInput = ({
               {formatSecondsToTime(Number(value))}
             </Text>
             <Slider
-              value={value}
               onValueChange={onChangeFormatted}
               maximumValue={totalValue}
               disabled={disabled}

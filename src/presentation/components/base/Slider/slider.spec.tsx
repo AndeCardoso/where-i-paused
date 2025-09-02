@@ -1,7 +1,14 @@
-import { fireEvent, render } from "@testing-library/react-native";
-import { ISliderProps } from "./model";
-import PauseImage from "@assets/images/pause.png";
+import { ImageURISource, Platform } from "react-native";
+import { act, fireEvent, render } from "@testing-library/react-native";
 import { PaperProvider } from "react-native-paper";
+
+import { ISliderProps } from "./model";
+
+import PauseImageIos from "@assets/images/ios/pause.png";
+import DisabledPauseImageIos from "@assets/images/ios/pause-disabled.png";
+import PauseImageAndroid from "@assets/images/android/pause.png";
+import DisabledPauseImageAndroid from "@assets/images/android/pause-disabled.png";
+
 import { Slider } from "./view";
 
 const mockTheme = {
@@ -15,7 +22,7 @@ jest.mock("react-native-paper", () => {
   const actualPaper = jest.requireActual("react-native-paper");
   return {
     ...actualPaper,
-    useTheme: () => mockTheme, // Mock do useTheme()
+    useTheme: () => mockTheme,
   };
 });
 
@@ -50,15 +57,33 @@ describe("Slider component", () => {
       onValueChange: handleValueChange,
     });
 
-    fireEvent(getByTestId("slider-component"), "onValueChange", 50);
+    act(() => {
+      fireEvent(getByTestId("slider-component"), "onValueChange", 50);
+    });
 
     expect(handleValueChange).toHaveBeenCalledTimes(1);
     expect(handleValueChange).toHaveBeenCalledWith(50);
   });
 
   it("should set the correct thumb image", () => {
-    const { getByTestId } = renderComponent({ maximumValue: 100 });
+    const disabled = false;
 
-    expect(getByTestId("slider-component").props.thumbImage).toBe(PauseImage);
+    const { getByTestId } = renderComponent({
+      maximumValue: 100,
+      disabled,
+    });
+
+    const thumbImageByPlatform: Record<"ios" | "android", ImageURISource> = {
+      ios: disabled
+        ? (DisabledPauseImageIos as ImageURISource)
+        : (PauseImageIos as ImageURISource),
+      android: disabled
+        ? (DisabledPauseImageAndroid as ImageURISource)
+        : (PauseImageAndroid as ImageURISource),
+    };
+
+    expect(getByTestId("slider-component").props.thumbImage).toBe(
+      thumbImageByPlatform[Platform.OS as "ios" | "android"]
+    );
   });
 });

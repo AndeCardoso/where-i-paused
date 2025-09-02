@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { act, fireEvent, render } from "@testing-library/react-native";
 import { PaperProvider } from "react-native-paper";
 import { IInputProps } from "./model";
 import { Input } from "./view";
@@ -30,7 +30,9 @@ describe("Input component", () => {
     const mockOnChangeText = jest.fn();
     const { getByTestId } = renderComponent({ onChangeText: mockOnChangeText });
 
-    fireEvent.changeText(getByTestId("input-component"), "Novo texto");
+    act(() => {
+      fireEvent.changeText(getByTestId("input-component"), "Novo texto");
+    });
 
     expect(mockOnChangeText).toHaveBeenCalledWith("Novo texto");
   });

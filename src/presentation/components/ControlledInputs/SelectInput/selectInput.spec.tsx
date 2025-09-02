@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, act } from "@testing-library/react-native";
 import { ControlledSelectInput } from "./view";
 import { useForm } from "react-hook-form";
 
@@ -64,7 +64,9 @@ describe("ControlledSelectInput", () => {
 
     expect(getByText("Option 1")).toBeTruthy();
 
-    fireEvent.press(getByTestId("select"));
+    act(() => {
+      fireEvent.press(getByTestId("select"));
+    });
 
     expect(getByText("Option 2")).toBeTruthy();
 

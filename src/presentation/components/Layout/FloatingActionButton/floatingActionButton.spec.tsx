@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react-native";
+import { act, fireEvent, render } from "@testing-library/react-native";
 import { FloatingActionButton } from "./view";
 
 jest.mock("react-native-paper", () => {
@@ -58,7 +58,9 @@ describe("FloatingActionButton component", () => {
       <FloatingActionButton onPress={mockPress} />
     );
 
-    fireEvent.press(getByTestId("fab"));
+    act(() => {
+      fireEvent.press(getByTestId("fab"));
+    });
 
     expect(mockPress).toHaveBeenCalled();
   });

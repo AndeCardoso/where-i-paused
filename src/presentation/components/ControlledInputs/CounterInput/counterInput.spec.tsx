@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, act } from "@testing-library/react-native";
 import { useForm } from "react-hook-form";
 import { ControlledCounterInput } from "./view";
 
@@ -63,22 +63,33 @@ describe("ControlledCounterInput component", () => {
   it("should increase value when icon button 'chevron-up' is pressed", () => {
     const { getByText } = renderComponent();
 
-    fireEvent.press(getByText("chevron-up"));
+    act(() => {
+      fireEvent.press(getByText("chevron-up"));
+    });
+
     expect(getByText("2")).toBeTruthy();
   });
 
   it("should not decrease when value is 1", () => {
     const { getByText } = renderComponent();
 
-    fireEvent.press(getByText("chevron-down"));
+    act(() => {
+      fireEvent.press(getByText("chevron-down"));
+    });
+
     expect(getByText("1")).toBeTruthy();
   });
 
   it("should decrease correctly if value > 1", () => {
     const { getByText } = renderComponent();
 
-    fireEvent.press(getByText("chevron-up")); // agora valor é 2
-    fireEvent.press(getByText("chevron-down")); // volta pra 1
+    act(() => {
+      fireEvent.press(getByText("chevron-up"));
+    });
+
+    act(() => {
+      fireEvent.press(getByText("chevron-down"));
+    });
     expect(getByText("1")).toBeTruthy();
   });
 });

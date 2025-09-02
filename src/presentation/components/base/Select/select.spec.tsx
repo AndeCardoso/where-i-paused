@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import { render, fireEvent, waitFor, act } from "@testing-library/react-native";
 import { PaperProvider } from "react-native-paper";
 import { Select } from "./view";
 import { ISelectOption } from "./model";
@@ -30,7 +30,9 @@ describe("Select component", () => {
       value: { label: "Option 1", value: "opt1" },
     });
 
-    fireEvent.press(getByDisplayValue("Option 1"));
+    act(() => {
+      fireEvent.press(getByDisplayValue("Option 1"));
+    });
 
     expect(await findByText("Option 1")).toBeTruthy();
     expect(await findByText("Option 2")).toBeTruthy();
@@ -43,11 +45,15 @@ describe("Select component", () => {
       onSelect,
     });
 
-    fireEvent.press(getByDisplayValue("Option 1"));
+    act(() => {
+      fireEvent.press(getByDisplayValue("Option 1"));
+    });
 
     const option2 = await findByText("Option 2");
 
-    fireEvent.press(option2);
+    act(() => {
+      fireEvent.press(option2);
+    });
 
     expect(onSelect).toHaveBeenCalledWith({ label: "Option 2", value: "opt2" });
   });
@@ -58,7 +64,9 @@ describe("Select component", () => {
       value: { label: "Option 1", value: "opt1" },
     });
 
-    fireEvent.press(getByDisplayValue("Option 1"));
+    act(() => {
+      fireEvent.press(getByDisplayValue("Option 1"));
+    });
 
     expect(await findByText("Choose an option")).toBeTruthy();
   });
@@ -69,11 +77,15 @@ describe("Select component", () => {
       value: { label: "Option 1", value: "opt1" },
     });
 
-    fireEvent.press(getByDisplayValue("Option 1"));
+    act(() => {
+      fireEvent.press(getByDisplayValue("Option 1"));
+    });
 
     const closeButton = await findByTestId("iconClose");
 
-    fireEvent.press(closeButton);
+    act(() => {
+      fireEvent.press(closeButton);
+    });
 
     await waitFor(() => {
       expect(queryByText("Choose")).toBeNull();

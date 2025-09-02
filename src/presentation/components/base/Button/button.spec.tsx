@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { act, fireEvent, render } from "@testing-library/react-native";
 import { PaperProvider } from "react-native-paper";
 import { IButtonProps } from "./model";
 import { Button } from "./view";
@@ -25,7 +25,9 @@ describe("Button component", () => {
       children: "Enabled Button",
     });
 
-    fireEvent(getByText("Enabled Button"), "press");
+    act(() => {
+      fireEvent(getByText("Enabled Button"), "press");
+    });
 
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -39,7 +41,9 @@ describe("Button component", () => {
       children: "Disabled Button",
     });
 
-    fireEvent(getByText("Disabled Button"), "press");
+    act(() => {
+      fireEvent(getByText("Disabled Button"), "press");
+    });
 
     expect(handleClick).toHaveBeenCalledTimes(0);
   });

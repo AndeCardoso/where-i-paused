@@ -1,4 +1,4 @@
-import { fireEvent, render } from "@testing-library/react-native";
+import { act, fireEvent, render } from "@testing-library/react-native";
 import { PaperProvider } from "react-native-paper";
 import { IconButton } from "./view";
 import { IIconButtonProps } from "./model";
@@ -27,7 +27,9 @@ describe("IconButton component", () => {
       onPress: handleClick,
     });
 
-    fireEvent.press(getByTestId("iconTouchable"));
+    act(() => {
+      fireEvent.press(getByTestId("iconTouchable"));
+    });
 
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -41,7 +43,9 @@ describe("IconButton component", () => {
       disabled: true,
     });
 
-    fireEvent.press(getByTestId("iconTouchable"));
+    act(() => {
+      fireEvent.press(getByTestId("iconTouchable"));
+    });
 
     expect(handleClick).not.toHaveBeenCalled();
   });
@@ -56,7 +60,9 @@ describe("IconButton component", () => {
 
     const button = getByTestId("iconTouchable");
 
-    fireEvent.press(button);
+    act(() => {
+      fireEvent.press(button);
+    });
 
     expect(button.props.style).toMatchObject({ opacity: 1 });
   });

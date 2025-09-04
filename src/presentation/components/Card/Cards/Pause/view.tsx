@@ -4,13 +4,13 @@ import { remapProps } from "nativewind";
 import { IconButton, useTheme } from "react-native-paper";
 import Animated from "react-native-reanimated";
 
-import { Text } from "@components/base/Text/view";
 import { Card } from "@components/Card/view";
+import { Text } from "@components/base/Text/view";
+import { Chip } from "@components/base/Chip/view";
 import { Slider } from "@components/base/Slider/view";
 
 import { formatSecondsToTime, formatTimeToSeconds } from "@utils/formatTime";
 import { IPauseCardProps } from "./model";
-import { Chip } from "@components/base/Chip/view";
 import { usePauseCardViewModel } from "./viewModel";
 
 const CustomizedCard = remapProps(Card, {
@@ -60,7 +60,7 @@ export const PauseCard = ({
             <CustomizedChip textStyle="uppercase">{contentType}</CustomizedChip>
           </View>
           {contentType === "series" ? (
-            <View className="flex-row justify-between">
+            <View className="flex-row justify-start gap-8">
               <View>
                 <Text size={18}>Season</Text>
                 <Text size={32} weight="600">

@@ -17,3 +17,17 @@ jest.mock("react-native-paper", () => {
 jest.mock('react-native-reanimated', () =>
   require('react-native-reanimated/mock')
 );
+
+global.__reanimatedWorkletInit = () => {};
+
+const originalError = console.error;
+
+jest.spyOn(console, "error").mockImplementation((msg, ...args) => {
+  if (msg.toString().includes("Warning: An update to Animated")) {
+    return;
+  }
+  if (msg.toString().includes("act(...)" )) {
+    return;
+  }
+  originalError(msg, ...args);
+});

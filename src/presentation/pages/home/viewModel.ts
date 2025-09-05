@@ -1,29 +1,25 @@
 import { useCallback, useState } from "react";
-import { useFocusEffect } from "expo-router";
-
-import { usePauseDb } from "@hooks/usePauseDb";
-import { useSentry } from "@hooks/useSentry";
+import { useFocusEffect, useRouter } from "expo-router";
 import { IPauseDomain } from "@domain/entities/Pause";
+import { usePauseDb } from "@hooks/usePauseDb";
+import { ROUTES_NAMES_ENUM } from "@routes/index";
+import { useSentry } from "@hooks/useSentry";
 
-export const useFavoritesModelView = () => {
-  const [pausesData, setPausesData] = useState<IPauseDomain[]>([]);
+export const useHomeViewModel = () => {
   const [opennedCard, setOpennedCard] = useState<number>();
+  const [pausesData, setPausesData] = useState<IPauseDomain[]>([]);
 
-  const { remove, favorite, listFavorited } = usePauseDb();
+  const { listRecents, remove, favorite } = usePauseDb();
   const { onError } = useSentry();
+  const { navigate } = useRouter();
 
   const handleOpenCard = (value: number) => {
     setOpennedCard((prevState) => (prevState === value ? undefined : value));
   };
 
-  const onDelete = async (id: number) => {
-    await remove(id);
-    getPauses();
-  };
-
   const getPauses = async () => {
     try {
-      const data = await listFavorited();
+      const data = await listRecents();
       if (data) {
         setPausesData(data);
       }
@@ -32,9 +28,18 @@ export const useFavoritesModelView = () => {
     }
   };
 
+  const onDelete = async (id: number) => {
+    await remove(id);
+    getPauses();
+  };
+
   const onFavorite = async (id: number, bol: boolean) => {
     await favorite(id, bol);
     getPauses();
+  };
+
+  const goToAdd = () => {
+    navigate({ pathname: ROUTES_NAMES_ENUM.ADD });
   };
 
   useFocusEffect(
@@ -46,8 +51,9 @@ export const useFavoritesModelView = () => {
   const isEmpty = pausesData.length === 0;
 
   return {
-    onDelete,
     pausesData,
+    goToAdd,
+    onDelete,
     onFavorite,
     handleOpenCard,
     viewState: { opennedCard, isEmpty },

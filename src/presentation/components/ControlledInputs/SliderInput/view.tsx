@@ -1,13 +1,16 @@
 import React from "react";
 import { View } from "react-native";
-import { Controller } from "react-hook-form";
 import { HelperText } from "react-native-paper";
-import { ICrontrolledSliderInputProps } from "./model";
-import { formatSecondsToTime } from "presentation/utils/formatTime";
+import { Controller, FieldValues, Path, PathValue } from "react-hook-form";
+
+import { formatSecondsToTime } from "@utils/formatTime";
+
 import { Slider } from "@components/base/Slider/view";
 import { Text } from "@components/base/Text/view";
 
-export const ControlledSliderInput = ({
+import { IControlledSliderInputProps } from "./model";
+
+export function ControlledSliderInput<T extends FieldValues>({
   name,
   size = 20,
   label,
@@ -15,19 +18,20 @@ export const ControlledSliderInput = ({
   control,
   disabled,
   totalValue,
-}: ICrontrolledSliderInputProps) => {
+  defaultValue,
+}: IControlledSliderInputProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
       disabled={disabled}
+      defaultValue={defaultValue as PathValue<T, Path<T>>}
       render={({ field: { value, onChange }, fieldState: { error } }) => {
-        if (isNaN(Number(value))) {
-          value = "00:00";
-        }
+        const numericValue = Number(value);
+        const safeValue = isNaN(numericValue) ? 0 : numericValue;
 
         const onChangeFormatted = (newValue: number) => {
-          onChange((newValue * Number(totalValue)).toFixed());
+          onChange(Math.round(newValue * totalValue));
         };
 
         return (
@@ -43,7 +47,7 @@ export const ControlledSliderInput = ({
               ) : null}
             </View>
             <Text size={24} className="self-center py-4">
-              {formatSecondsToTime(Number(value))}
+              {formatSecondsToTime(Number(safeValue))}
             </Text>
             <Slider
               onValueChange={onChangeFormatted}
@@ -59,4 +63,4 @@ export const ControlledSliderInput = ({
       }}
     />
   );
-};
+}

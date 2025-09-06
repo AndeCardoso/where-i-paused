@@ -1,26 +1,30 @@
 import React from "react";
 import { View } from "react-native";
-import { Controller } from "react-hook-form";
 import { HelperText } from "react-native-paper";
-import { ICrontrolledCounterInputProps } from "./model";
+import { Controller, FieldValues, Path, PathValue } from "react-hook-form";
+
 import { Text } from "@components/base/Text/view";
 import { Input } from "@components/base/Input/view";
 import { IconButton } from "@components/base/IconButton/view";
 
-export const ControlledCounterInput = ({
+import { IControlledCounterInputProps } from "./model";
+
+export function ControlledCounterInput<T extends FieldValues>({
   name,
   size = 20,
   label,
   weight = "600",
   control,
   disabled,
+  defaultValue,
   ...rest
-}: ICrontrolledCounterInputProps) => {
+}: IControlledCounterInputProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
       disabled={disabled}
+      defaultValue={defaultValue as PathValue<T, Path<T>>}
       {...rest}
       render={({ field: { value, onChange }, fieldState: { error } }) => {
         const isMinimun = value === 1;
@@ -69,4 +73,4 @@ export const ControlledCounterInput = ({
       }}
     />
   );
-};
+}

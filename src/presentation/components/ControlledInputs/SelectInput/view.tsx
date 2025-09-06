@@ -1,12 +1,15 @@
 import React from "react";
 import { View } from "react-native";
-import { Controller } from "react-hook-form";
 import { HelperText } from "react-native-paper";
+import { Controller, FieldValues, Path, PathValue } from "react-hook-form";
+
 import { Text } from "@components/base/Text/view";
 import { Select } from "@components/base/Select/view";
-import { ICrontrolledSelectInputProps } from "./model";
+import { ISelectOption } from "@components/base/Select/model";
 
-export const ControlledSelectInput = ({
+import { IControlledSelectInputProps } from "./model";
+
+export function ControlledSelectInput<T extends FieldValues>({
   name,
   size = 20,
   label,
@@ -18,14 +21,19 @@ export const ControlledSelectInput = ({
   modalTitle,
   placeholder,
   defaultValue,
-}: ICrontrolledSelectInputProps) => {
+  onSelect,
+}: IControlledSelectInputProps<T>) {
   return (
     <Controller
       name={name}
       control={control}
       disabled={disabled}
-      defaultValue={defaultValue}
+      defaultValue={defaultValue as PathValue<T, Path<T>>}
       render={({ field: { value, onChange }, fieldState: { error } }) => {
+        const handleChange = (option: ISelectOption) => {
+          onSelect && onSelect(option);
+          onChange(option);
+        };
         return (
           <View className="gap-2">
             <View className="flex-row justify-between align-middle">
@@ -44,7 +52,7 @@ export const ControlledSelectInput = ({
               placeholder={placeholder}
               numberOfLines={textArea ? 4 : undefined}
               multiline={textArea}
-              onSelect={onChange}
+              onSelect={handleChange}
               options={options}
             />
           </View>
@@ -52,4 +60,4 @@ export const ControlledSelectInput = ({
       }}
     />
   );
-};
+}

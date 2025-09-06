@@ -1,24 +1,31 @@
 import React from "react";
+import { View } from "react-native";
 import { useRouter } from "expo-router";
+import Animated from "react-native-reanimated";
 
 import { time } from "@utils/masks";
+
 import { Layout } from "@components/Layout/view";
 import { Button } from "@components/base/Button/view";
 import { ControlledTextInput } from "@components/ControlledInputs/TextInput/view";
 import { ControlledSelectInput } from "@components/ControlledInputs/SelectInput/view";
 import { ControlledSliderInput } from "@components/ControlledInputs/SliderInput/view";
+import { ControlledCounterInput } from "@components/ControlledInputs/CounterInput/view";
 
 import { useAddViewModel } from "./viewModel";
 
 export const AddView = () => {
   const { back } = useRouter();
   const {
-    reset,
     control,
+    onReset,
     onSubmit,
     handleSubmit,
     contentTypeOptions,
-    formValues: { totalTime, contentType },
+    animatedHeightStyle,
+    animatedOpacityStyle,
+    handleChangeContentType,
+    formValues: { totalTime },
     viewState: { isValid },
   } = useAddViewModel();
 
@@ -26,7 +33,7 @@ export const AddView = () => {
     <Layout>
       <Layout.Content
         hasScroll
-        className="h-full px-4 pt-4"
+        className="h-full px-4 pt-8"
         contentContainerStyle={{
           rowGap: 12,
         }}
@@ -42,38 +49,30 @@ export const AddView = () => {
           label="Content type"
           placeholder="E.g. Movie"
           control={control}
+          onSelect={handleChangeContentType}
           modalTitle="Content type"
           options={contentTypeOptions}
         />
-        {/* <ControlledTextInput
-          name="genre"
-          label="Genre"
-          placeholder="E.g. Drama"
-          control={control}
-        /> */}
-        {/* <ControlledTextInput
-          name="description"
-          label="Description"
-          placeholder="E.g. A poor artist and a rich debutante meet and fall in love on the famously ill-fated maiden voyage of the `unsinkable' RMS Titanic in 1912."
-          control={control}
-          textArea
-        /> */}
-        {contentType === "serie" ? (
-          <>
-            <ControlledTextInput
+        <Animated.View
+          style={[
+            animatedHeightStyle,
+            animatedOpacityStyle,
+            { overflow: "hidden" },
+          ]}
+        >
+          <View className="flex-row gap-4 justify-between">
+            <ControlledCounterInput
               name="season"
               label="Season"
-              placeholder="E.g. Drama"
               control={control}
             />
-            <ControlledTextInput
+            <ControlledCounterInput
               name="episode"
               label="Episode"
-              placeholder="E.g. 06"
               control={control}
             />
-          </>
-        ) : null}
+          </View>
+        </Animated.View>
         <ControlledTextInput
           name="totalTime"
           label="Total time"
@@ -94,9 +93,10 @@ export const AddView = () => {
         icon={"arrow-left"}
         height={24}
         onPress={back}
+        isContrasted
       />
       <Layout.Footer>
-        <Button mode="outlined" onPress={reset}>
+        <Button mode="outlined" onPress={onReset}>
           RESET
         </Button>
         <Button

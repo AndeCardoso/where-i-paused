@@ -1,70 +1,53 @@
-import { useRef, useState } from "react";
-import { Animated, Easing } from "react-native";
+import { useState } from "react";
+import {
+  withTiming,
+  withSpring,
+  useSharedValue,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 
 export const usePauseCardViewModel = () => {
-  const [shouldRenderActions, setShouldRenderActions] = useState(false);
+  const [renderActions, setRenderActions] = useState(false);
 
-  const animation = useRef(new Animated.Value(0)).current;
-  const opacityAnimation = useRef(new Animated.Value(0)).current;
-  const rotateAnimation = useRef(new Animated.Value(0)).current;
+  const height = useSharedValue(0);
+  const opacity = useSharedValue(0);
+  const rotation = useSharedValue(0);
 
   const toggleActions = () => {
-    setShouldRenderActions((prev) => !prev);
-
-    Animated.timing(opacityAnimation, {
-      toValue: shouldRenderActions ? 0 : 1,
-      duration: 1500,
-      easing: Easing.inOut(Easing.exp),
-      useNativeDriver: false,
-    }).start(() => {
-      if (shouldRenderActions) {
-        setShouldRenderActions(false);
-      } else {
-        setShouldRenderActions(true);
-      }
-    });
-
-    Animated.timing(animation, {
-      toValue: shouldRenderActions ? 0 : 1,
-      duration: 1000,
-      easing: Easing.inOut(Easing.exp),
-      useNativeDriver: false,
-    }).start(() => {
-      if (shouldRenderActions) {
-        setShouldRenderActions(false);
-      } else {
-        setShouldRenderActions(true);
-      }
-    });
-
-    Animated.timing(rotateAnimation, {
-      toValue: shouldRenderActions ? 0 : 1,
-      duration: 500,
-      easing: Easing.out(Easing.exp),
-      useNativeDriver: true,
-    }).start();
+    const next = !renderActions;
+    setRenderActions(next);
+    triggerAnimations(next);
   };
 
-  const animatedHeight = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 70],
-  });
+  const triggerAnimations = (next: boolean) => {
+    height.value = next
+      ? withSpring(70, { damping: 8, stiffness: 120 })
+      : withTiming(0.1, { duration: 250 });
 
-  const animatedOpacity = opacityAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
+    opacity.value = withTiming(next ? 1 : 0, { duration: 300 });
 
-  const rotate = rotateAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "-180deg"],
-  });
+    rotation.value = next
+      ? withSpring(180, { damping: 8, stiffness: 120 })
+      : withTiming(0, { duration: 250 });
+  };
+
+  const animatedHeight = useAnimatedStyle(() => ({
+    height: height.value,
+  }));
+
+  const animatedOpacity = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
+
+  const rotate = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotation.value}deg` }],
+  }));
 
   return {
     rotate,
     animatedOpacity,
     animatedHeight,
     toggleActions,
-    viewState: { shouldRenderActions },
+    viewState: { renderActions },
   };
 };

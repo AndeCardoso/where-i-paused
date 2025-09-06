@@ -4,4 +4,5 @@ export interface IFloatingActionButtonProps {
   icon?: IconSource;
   height?: number;
   onPress: VoidFunction;
+  isContrasted?: boolean;
 }

@@ -4,8 +4,8 @@ export const contentTypeOptions = [
     value: "movie",
   },
   {
-    label: "Serie",
-    value: "serie",
+    label: "Series",
+    value: "series",
   },
   {
     label: "Music",

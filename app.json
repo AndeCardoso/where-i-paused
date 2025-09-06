@@ -8,6 +8,7 @@
     "scheme": "where-i-paused",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "jsEngine": "hermes",
     "splash": {
       "image": "./src/presentation/assets/images/background-full.png"
     },
@@ -16,15 +17,16 @@
       "bundleIdentifier": "com.cardoso.where-i-paused",
       "backgroundColor": "#FF7700",
       "splash": {
-        "image": "./src/presentation/assets/images/splash-icon.png",
-        "resizeMode": "contain",
-        "backgroundImage": "./src/presentation/assets/images/background-full.png"
+        "image": "./src/presentation/assets/images/ios/splash-icon.png",
+        "backgroundImage": "./src/presentation/assets/images/background-full.png",
+        "resizeMode": "contain"
       }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/presentation/assets/images/adaptive-icon.png",
-        "backgroundColor": "#FF7700"
+      "icon": "./src/presentation/assets/images/android/adaptive-icon.png",
+      "splash": {
+        "image": "./src/presentation/assets/images/android/splash-icon.png",
+        "resizeMode": "contain"
       },
       "package": "com.cardoso.where_i_paused"
     },

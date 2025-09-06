@@ -1,23 +1,29 @@
-import { Text } from "@components/base/Text/view";
 import React from "react";
 import { View } from "react-native";
 import { Icon, useTheme } from "react-native-paper";
+import { Text } from "@components/base/Text/view";
 import { IEmptyStateProps } from "./model";
 
-export const EmptyState = ({ icon, title, subtitle }: IEmptyStateProps) => {
+export const EmptyState = ({
+  icon,
+  title,
+  subtitle,
+  isContrasted,
+}: IEmptyStateProps) => {
   const { colors } = useTheme();
+
+  const color = isContrasted ? colors.onPrimary : colors.primaryContainer;
+
   return (
-    <View className="w-full self-stretch items-center gap-4">
-      {icon ? (
-        <Icon source={icon} size={64} color={colors.primaryContainer} />
-      ) : null}
+    <View className="align-middle justify-center items-center gap-4">
+      {icon ? <Icon source={icon} size={64} color={color} /> : null}
       {title ? (
-        <Text size={24} weight="600" color={colors.primaryContainer}>
+        <Text size={24} weight="600" color={color}>
           {title}
         </Text>
       ) : null}
       {subtitle ? (
-        <Text size={18} color={colors.primaryContainer} align="center">
+        <Text size={18} align="center" color={color}>
           {subtitle}
         </Text>
       ) : null}

@@ -1,12 +1,25 @@
 import { useCallback, useState } from "react";
 import { useFocusEffect } from "expo-router";
+
 import { usePauseDb } from "@hooks/usePauseDb";
+import { useSentry } from "@hooks/useSentry";
 import { IPauseDomain } from "@domain/entities/Pause";
 
 export const useFavoritesModelView = () => {
   const [pausesData, setPausesData] = useState<IPauseDomain[]>([]);
+  const [opennedCard, setOpennedCard] = useState<number>();
 
-  const { remove, favorite, listFavorited, hasChange } = usePauseDb();
+  const { remove, favorite, listFavorited } = usePauseDb();
+  const { onError } = useSentry();
+
+  const handleOpenCard = (value: number) => {
+    setOpennedCard((prevState) => (prevState === value ? undefined : value));
+  };
+
+  const onDelete = async (id: number) => {
+    await remove(id);
+    getPauses();
+  };
 
   const getPauses = async () => {
     try {
@@ -15,7 +28,7 @@ export const useFavoritesModelView = () => {
         setPausesData(data);
       }
     } catch (error) {
-      console.log("e", error);
+      onError(error);
     }
   };
 
@@ -30,5 +43,13 @@ export const useFavoritesModelView = () => {
     }, [])
   );
 
-  return { pausesData, remove, onFavorite };
+  const isEmpty = pausesData.length === 0;
+
+  return {
+    onDelete,
+    pausesData,
+    onFavorite,
+    handleOpenCard,
+    viewState: { opennedCard, isEmpty },
+  };
 };

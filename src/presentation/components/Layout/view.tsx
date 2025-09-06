@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Layout: ILayoutProps = ({ children }) => {
   return (
-    <SafeAreaView mode="padding" className="flex-1">
+    <SafeAreaView mode="margin" className="flex-1">
       <View className="h-full pt-11">{children}</View>
     </SafeAreaView>
   );

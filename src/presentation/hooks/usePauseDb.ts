@@ -1,6 +1,5 @@
 import { useSQLiteContext } from "expo-sqlite";
 import { IPauseDomain } from "@domain/entities/Pause";
-import { IAddForm } from "@pages/add/model";
 import { useEffect, useState } from "react";
 
 export const usePauseDb = () => {
@@ -12,17 +11,21 @@ export const usePauseDb = () => {
     contentType,
     totalTime,
     paused,
-  }: IAddForm) => {
+    season,
+    episode,
+  }: IPauseDomain) => {
     const statement = await db.prepareAsync(
-      `INSERT INTO pauses (title, contentType, totalTime, paused) VALUES ($title, $contentType, $totalTime, $paused)`
+      `INSERT INTO pauses (title, contentType, totalTime, paused, season, episode) VALUES ($title, $contentType, $totalTime, $paused, $season, $episode)`
     );
 
     try {
       const result = await statement.executeAsync({
         $title: title,
-        $contentType: contentType.value,
+        $contentType: contentType,
         $totalTime: totalTime,
         $paused: Number(paused),
+        $season: season,
+        $episode: episode,
       });
 
       return Boolean(result);
@@ -36,11 +39,11 @@ export const usePauseDb = () => {
   const update = async (data: Partial<IPauseDomain>) => {
     if (!data) return;
 
-    const { id, title, contentType, totalTime, paused, favorited } = data;
+    const { id, title, contentType, totalTime, paused, season, episode } = data;
 
     const statement = await db.prepareAsync(
       `UPDATE pauses
-      SET title = ${title}, contentType = ${contentType}, totalTime = ${totalTime}, paused = ${paused}
+      SET title = ${title}, contentType = ${contentType}, totalTime = ${totalTime}, paused = ${paused}, season = ${season}, episode = ${episode}
       WHERE id = ${id}`
     );
 

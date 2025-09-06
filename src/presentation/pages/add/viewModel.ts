@@ -1,16 +1,23 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useRouter } from "expo-router";
+import {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+  withSpring,
+} from "react-native-reanimated";
 
+import { ISelectOption } from "@components/base/Select/model";
+import { EContentTypes, IPauseDomain } from "@domain/entities/Pause";
 import { contentTypeOptions } from "@constants/contentTypeOptions";
 import { formatTimeToSeconds } from "@utils/formatTime";
-import { TContentTypes } from "@domain/entities/Pause";
 import { usePauseDb } from "@hooks/usePauseDb";
-
-import { IAddForm } from "./model";
 
 export const useAddViewModel = () => {
   const { back } = useRouter();
   const { create } = usePauseDb();
+  const height = useSharedValue(0);
+  const opacity = useSharedValue(0);
 
   const {
     watch,
@@ -18,14 +25,25 @@ export const useAddViewModel = () => {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<FieldValues, IAddForm>({});
+  } = useForm<IPauseDomain>({
+    defaultValues: {
+      title: "",
+      contentType: EContentTypes.MOVIE,
+      totalTime: "",
+      paused: "",
+      season: 1,
+      episode: 1,
+      favorited: false,
+    },
+  });
 
-  const onSubmit = async (values: IAddForm | FieldValues) => {
+  const totalTime = formatTimeToSeconds(watch("totalTime"));
+  const contentType = watch("contentType");
+
+  const onSubmit = async (values: IPauseDomain) => {
     const response = await create({
-      title: values.title,
+      ...values,
       contentType: values.contentType,
-      totalTime: values.totalTime,
-      paused: values.paused,
     });
 
     if (response) {
@@ -33,18 +51,44 @@ export const useAddViewModel = () => {
     }
   };
 
-  const contentType: TContentTypes = watch("type")?.value;
-  const totalTime = formatTimeToSeconds(watch("totalTime"));
+  const onReset = async () => {
+    reset();
+  };
+
+  const handleChangeContentType = (value: ISelectOption) => {
+    triggerAnimations(value.value === "series");
+  };
+
+  const triggerAnimations = (shouldShow: boolean) => {
+    height.value = withSpring(shouldShow ? 100 : 0, {
+      damping: 50,
+      stiffness: 50,
+    });
+
+    opacity.value = withTiming(shouldShow ? 1 : 0, {
+      duration: 300,
+    });
+  };
+
+  const animatedHeightStyle = useAnimatedStyle(() => ({
+    height: height.value,
+  }));
+
+  const animatedOpacityStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   return {
-    reset,
     control,
+    onReset,
     onSubmit,
     handleSubmit,
+    animatedHeightStyle,
+    animatedOpacityStyle,
     contentTypeOptions,
+    handleChangeContentType,
     formValues: {
       totalTime,
-      contentType,
     },
     viewState: { isValid },
   };

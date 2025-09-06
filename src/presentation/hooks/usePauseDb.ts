@@ -1,6 +1,5 @@
 import { useSQLiteContext } from "expo-sqlite";
 import { IPauseDomain } from "@domain/entities/Pause";
-import { IAddForm } from "@pages/add/model";
 import { useEffect, useState } from "react";
 
 export const usePauseDb = () => {
@@ -14,7 +13,7 @@ export const usePauseDb = () => {
     paused,
     season,
     episode,
-  }: IAddForm) => {
+  }: IPauseDomain) => {
     const statement = await db.prepareAsync(
       `INSERT INTO pauses (title, contentType, totalTime, paused, season, episode) VALUES ($title, $contentType, $totalTime, $paused, $season, $episode)`
     );

@@ -4,7 +4,6 @@ import {
   withSpring,
   useSharedValue,
   useAnimatedStyle,
-  Easing,
 } from "react-native-reanimated";
 
 export const usePauseCardViewModel = () => {
@@ -15,24 +14,21 @@ export const usePauseCardViewModel = () => {
   const rotation = useSharedValue(0);
 
   const toggleActions = () => {
-    setRenderActions((prev) => !prev);
-    triggerAnimations();
+    const next = !renderActions;
+    setRenderActions(next);
+    triggerAnimations(next);
   };
 
-  const triggerAnimations = () => {
-    height.value = withSpring(renderActions ? 0.1 : 70, {
-      damping: 5,
-      stiffness: 100,
-    });
+  const triggerAnimations = (next: boolean) => {
+    height.value = next
+      ? withSpring(70, { damping: 8, stiffness: 120 })
+      : withTiming(0.1, { duration: 250 });
 
-    opacity.value = withTiming(renderActions ? 0 : 1, {
-      duration: 300,
-    });
+    opacity.value = withTiming(next ? 1 : 0, { duration: 300 });
 
-    rotation.value = withSpring(renderActions ? 0 : 180, {
-      damping: 5,
-      stiffness: 100,
-    });
+    rotation.value = next
+      ? withSpring(180, { damping: 8, stiffness: 120 })
+      : withTiming(0, { duration: 250 });
   };
 
   const animatedHeight = useAnimatedStyle(() => ({
